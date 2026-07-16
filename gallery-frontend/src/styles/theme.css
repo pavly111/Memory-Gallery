@@ -1,0 +1,63 @@
+/* styles/theme.css
+   Memory Gallery — Darkroom / Archive Room design tokens, as CSS custom
+   properties. Import this once in your global styles.css:
+     @import './theme.css';
+   Then every component can use var(--color-amber) etc. with zero extra
+   imports needed per-component. */
+
+   /* Add this to the TOP of src/styles.css (the global stylesheet, not a
+   component-level one). Fixes the default browser body margin that shows
+   as a thin white/default-background strip around full-viewport pages. */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+:root {
+  /* COLORS */
+
+  /* Auth screen — red darkroom safelight */
+  --color-safelight-red: #B33A2E;
+  --color-safelight-red-glow: rgba(179, 58, 46, 0.35);
+
+  /* Post-login — warm amber archive room */
+  --color-amber: #D9A24B;
+  --color-amber-hover: #E5B565;
+  --color-amber-pressed: #C08F3F;
+
+  /* Base surfaces */
+  --color-charcoal: #14110D;
+  --color-surface: #1C1811;
+  --color-surface-raised: #241F17;
+  --color-border: #3A3226;
+
+  /* Text */
+  --color-text-cream: #F3ECDE;
+  --color-text-muted: #A89A85;
+  --color-text-on-amber: #1C1811;
+
+  /* Semantic */
+  --color-danger: #B33A2E;
+
+  /* TYPOGRAPHY */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --tracking-mono-label: 0.06em;
+
+  /* SPACING / SIZING */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-modal: 0 16px 48px rgba(0, 0, 0, 0.6);
+
+  --polaroid-border-width: 10px;
+  --polaroid-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}

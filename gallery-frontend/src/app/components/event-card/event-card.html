@@ -1,0 +1,39 @@
+<!-- components/event-card/event-card.component.html -->
+<div class="event-card" (click)="onCardClick()">
+  <div class="clothespin"></div>
+
+  <div class="cover-photo">
+    <img [src]="event.coverUrl" [alt]="event.name" *ngIf="event.coverUrl" />
+    <div class="cover-placeholder" *ngIf="!event.coverUrl">No photos yet</div>
+  </div>
+
+  <div class="card-body">
+    <h3 class="event-name">{{ event.name }}</h3>
+
+    <div class="metadata-row" *ngIf="event.date">
+      <span class="metadata-item">{{ event.date | date: 'MMM d, y' }}</span>
+    </div>
+    <!--
+      NOTE: the dashboard mockup shows a date RANGE ("MAY 10 – MAY 14, 2024")
+      plus photo count and member count on this row. The current EventModel
+      only has a single `date` field, and counts aren't returned by
+      GET /api/events yet — both would need backend changes first (see the
+      "known gaps" section in the project doc). This renders what actually
+      exists today; extend once the backend supports it.
+    -->
+  </div>
+
+  <!--
+    Only shown when the parent confirms this user owns the event, via the
+    isOwner @Input. Backend still enforces owner-only deletion
+    independently either way — this just avoids showing a button that
+    would 403 for non-owners.
+  -->
+  <button
+    class="delete-btn"
+    *ngIf="isOwner"
+    (click)="onDeleteClick($event)"
+    aria-label="Delete event">
+    &times;
+  </button>
+</div>

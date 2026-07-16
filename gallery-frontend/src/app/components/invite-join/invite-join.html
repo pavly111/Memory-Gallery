@@ -1,0 +1,13 @@
+<!-- components/invite-join/invite-join.component.html -->
+<div class="invite-join-screen">
+  <div class="status-card">
+    <div *ngIf="isLoading()">
+      <p>Joining event...</p>
+    </div>
+
+    <div *ngIf="!isLoading() && errorMessage()">
+      <p class="error-message">{{ errorMessage() }}</p>
+      <button (click)="goToDashboard()">Go to your dashboard</button>
+    </div>
+  </div>
+</div>

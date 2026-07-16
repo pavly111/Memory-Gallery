@@ -1,0 +1,36 @@
+<!-- components/create-event-modal/create-event-modal.component.html -->
+<div class="modal-backdrop" (click)="onCancel()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="clothespin"></div>
+
+    <h2>Name this event</h2>
+    <p class="subtitle">
+      Trip, wedding, party — this becomes the folder everyone uploads into.
+    </p>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="field-group">
+        <label>EVENT NAME</label>
+        <input
+          type="text"
+          [(ngModel)]="eventName"
+          name="eventName"
+          placeholder="e.g. Our Summer Vacation" />
+      </div>
+
+      <div class="field-group">
+        <label>DATE</label>
+        <input type="date" [(ngModel)]="eventDate" name="eventDate" />
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="create-btn" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Creating...' : 'Create Event' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

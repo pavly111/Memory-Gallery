@@ -1,0 +1,39 @@
+<!-- components/dashboard/dashboard.component.html -->
+<div class="dashboard">
+  <header class="dashboard-header">
+    <div>
+      <h1>Hey {{ authService.currentUser()?.name }}, good to see you</h1>
+      <p class="subtitle">Your events and everyone's uploads live here.</p>
+    </div>
+    <div class="header-actions">
+      <button class="logout-btn" (click)="logout()">Log Out</button>
+      <button class="create-event-btn" (click)="openCreateEventModal()">
+        + Create Event
+      </button>
+    </div>
+  </header>
+
+  <div class="loading-state" *ngIf="isLoading()">Loading your events...</div>
+
+  <div class="error-state" *ngIf="errorMessage()">{{ errorMessage() }}</div>
+
+  <div class="empty-state" *ngIf="!isLoading() && !errorMessage() && events().length === 0">
+    You haven't created any events yet — click "Create Event" to start one.
+  </div>
+
+  <div class="event-grid" *ngIf="!isLoading() && events().length > 0">
+    <app-event-card
+      *ngFor="let event of events(); trackBy: trackByEventId"
+      [event]="event"
+      [isOwner]="isEventOwner(event)"
+      (cardClicked)="goToEventGallery($event)"
+      (deleteRequested)="confirmAndDeleteEvent($event)">
+    </app-event-card>
+  </div>
+
+  <app-create-event-modal
+    *ngIf="showCreateModal"
+    (eventCreated)="onEventCreated($event)"
+    (cancelled)="onModalCancelled()">
+  </app-create-event-modal>
+</div>

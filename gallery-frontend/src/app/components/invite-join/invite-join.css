@@ -1,0 +1,35 @@
+/* components/invite-join/invite-join.component.css */
+
+.invite-join-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-charcoal);
+}
+
+.status-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 40px;
+  text-align: center;
+  font-family: var(--font-ui);
+  color: var(--color-text-cream);
+}
+
+.error-message {
+  color: var(--color-danger);
+  margin-bottom: 16px;
+}
+
+.status-card button {
+  background: var(--color-amber);
+  color: var(--color-text-on-amber);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  cursor: pointer;
+}

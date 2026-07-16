@@ -1,0 +1,171 @@
+/* components/dashboard/dashboard.component.css */
+
+.dashboard {
+  background: var(--color-charcoal);
+  background-image: url('/archive-room-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 32px 48px;
+}
+
+.dashboard-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+/* Soft dark glow sitting behind the header text only — fades out at the
+   edges via blur, so it reads as ambient depth rather than a hard box.
+   Sized a bit larger than the text itself and nudged up/left so the glow
+   centers roughly under the title. */
+.dashboard-header::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: 480px;
+  height: 160px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.25) 55%,
+    transparent 80%
+  );
+  filter: blur(12px);
+  z-index: 0;
+  pointer-events: none; /* never intercepts clicks meant for the buttons */
+}
+
+.dashboard-header > * {
+  position: relative;
+  z-index: 1; /* keeps actual content above the glow layer */
+}
+
+.dashboard-header h1 {
+  font-family: var(--font-display);
+  color: var(--color-text-cream);
+  font-size: 2.25rem;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.subtitle {
+  font-family: var(--font-ui);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logout-btn {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  color: var(--color-text-cream);
+  border-color: var(--color-text-cream);
+}
+
+.create-event-btn {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  background: var(--color-amber);
+  color: var(--color-text-on-amber);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.create-event-btn:hover {
+  background: var(--color-amber-hover);
+}
+
+.loading-state,
+.error-state,
+.empty-state {
+  position: relative;
+  display: inline-block; /* so the glow layer sizes to the actual text width, not the full row */
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-ui);
+  color: var(--color-text-muted);
+  padding: 16px 32px;
+  text-align: center;
+}
+
+/* A dedicated dark glow behind these specific messages — text-shadow alone
+   wasn't enough here, since this text can land over the brightest, busiest
+   part of the background photo (the lamp glow, light-colored polaroids)
+   depending on scroll position and viewport size. This pseudo-element
+   guarantees real contrast regardless of what's directly behind it. */
+.loading-state::before,
+.error-state::before,
+.empty-state::before {
+  content: '';
+  position: absolute;
+  inset: -8px -20px;
+  background: rgba(20, 17, 13, 0.65);
+  border-radius: var(--radius-md);
+  filter: blur(6px);
+  z-index: -1;
+}
+
+.error-state {
+  color: var(--color-danger);
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 32px 24px;
+  /* extra top gap accounts for the clothespin overlapping each card's
+     top edge — without it, the first row's clothespins get clipped by
+     the header above them */
+  padding-top: 12px;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 20px 16px;
+    /* background-attachment: fixed renders poorly (or not at all) on iOS
+       Safari — scroll performance issues and visual glitches are common.
+       Falling back to normal scrolling on mobile avoids that entirely. */
+    background-attachment: scroll;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .header-actions {
+    justify-content: flex-end;
+  }
+
+  .event-grid {
+    grid-template-columns: 1fr;
+  }
+}

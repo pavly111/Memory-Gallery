@@ -1,0 +1,21 @@
+<!-- components/photo-lightbox/photo-lightbox.component.html -->
+<div class="lightbox-backdrop" (click)="onBackdropClick()">
+  <div class="lightbox-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="onClose()" aria-label="Close">&times;</button>
+
+    <img [src]="photo.url" [alt]="photo.caption" class="lightbox-image" />
+
+    <div class="lightbox-footer">
+      <div class="photo-meta">
+        <span class="uploader-name">{{ photo.uploaderId.name }}</span>
+        <span class="caption" *ngIf="photo.caption">{{ photo.caption }}</span>
+      </div>
+
+      <button class="download-btn" (click)="onDownload()" [disabled]="isDownloading()">
+        {{ isDownloading() ? 'Downloading...' : 'Download' }}
+      </button>
+    </div>
+
+    <div class="download-error" *ngIf="downloadError()">{{ downloadError() }}</div>
+  </div>
+</div>

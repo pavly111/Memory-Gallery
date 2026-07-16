@@ -1,0 +1,55 @@
+<!-- components/event-gallery/event-gallery.component.html -->
+<div class="gallery-screen">
+  <header class="gallery-header">
+    <div>
+      <a class="back-link" (click)="goBack()">&larr; All Events</a>
+      <h1 class="event-title">{{ event()?.name }}</h1>
+      <p class="photo-count">{{ photos().length }} photos</p>
+    </div>
+
+    <div class="header-actions">
+      <button class="invite-btn" (click)="inviteFriends()">Invite Friends</button>
+
+      <label class="upload-btn">
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+        {{ isUploading() ? 'Uploading...' : '+ Upload Photos' }}
+      </label>
+    </div>
+  </header>
+
+  <div class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</div>
+
+  <div class="loading-state" *ngIf="isLoading()">Loading gallery...</div>
+
+  <div class="empty-state" *ngIf="!isLoading() && photos().length === 0">
+    No photos yet — be the first to upload one.
+  </div>
+
+  <div class="wire-gallery" *ngIf="!isLoading() && photos().length > 0">
+    <div
+      class="polaroid"
+      appRandomTilt
+      *ngFor="let photo of photos(); trackBy: trackByPhotoId">
+      <img
+        [src]="photo.url"
+        [alt]="photo.caption"
+        (click)="openLightbox(photo)" />
+
+      <span class="uploader-tag">{{ photo.uploaderId.name }}</span>
+
+      <button
+        class="delete-photo-btn"
+        *ngIf="canDeletePhoto(photo)"
+        (click)="deletePhoto(photo._id)"
+        aria-label="Delete photo">
+        &times;
+      </button>
+    </div>
+  </div>
+
+  <app-photo-lightbox
+    *ngIf="selectedPhoto()"
+    [photo]="selectedPhoto()!"
+    (closed)="closeLightbox()">
+  </app-photo-lightbox>
+</div>

@@ -1,0 +1,235 @@
+/* components/event-gallery/event-gallery.component.css */
+
+.gallery-screen {
+  background: var(--color-charcoal);
+  background-image: url('/archive-room-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 32px 48px;
+}
+
+.gallery-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.gallery-header::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: 480px;
+  height: 180px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.25) 55%,
+    transparent 80%
+  );
+  filter: blur(12px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.gallery-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+.back-link {
+  font-family: var(--font-ui);
+  color: var(--color-amber);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 12px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+.event-title {
+  font-family: var(--font-display);
+  color: var(--color-text-cream);
+  font-size: 2.5rem;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.photo-count {
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-mono-label);
+  font-size: 0.8rem;
+  margin-top: 4px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.invite-btn {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  background: transparent;
+  color: var(--color-text-cream);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+.upload-btn {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  background: var(--color-amber);
+  color: var(--color-text-on-amber);
+  border-radius: var(--radius-sm);
+  padding: 12px 20px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.upload-btn:hover {
+  background: var(--color-amber-hover);
+}
+
+.error-message {
+  color: var(--color-danger);
+  font-family: var(--font-ui);
+  margin-bottom: 16px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+}
+
+.loading-state,
+.empty-state {
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-ui);
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 16px 32px;
+}
+
+.loading-state::before,
+.empty-state::before {
+  content: '';
+  position: absolute;
+  inset: -8px -20px;
+  background: rgba(20, 17, 13, 0.65);
+  border-radius: var(--radius-md);
+  filter: blur(6px);
+  z-index: -1;
+}
+
+/* The hanging wire itself — a thin line the polaroids appear clipped to */
+.wire-gallery {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding-top: 24px;
+}
+
+.wire-gallery::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #8a6d4a; /* warm rope/brown tone */
+}
+
+.polaroid {
+  position: relative;
+  background: var(--color-text-cream);
+  padding: 10px 10px 32px 10px; /* thicker bottom border = classic polaroid look */
+  box-shadow: var(--polaroid-shadow);
+  width: 220px;
+  /* Rotation applied per-instance via the appRandomTilt directive
+     (directives/random-tilt.directive.ts) — see the *ngFor in the
+     template, not a static value here. */
+}
+
+.polaroid img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+}
+
+.uploader-tag {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  color: var(--color-charcoal);
+}
+
+.delete-photo-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-danger);
+  color: var(--color-text-cream);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .gallery-screen {
+    padding: 20px 16px;
+    background-attachment: scroll; /* same iOS Safari fix as dashboard */
+  }
+
+  .gallery-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .event-title {
+    font-size: 1.75rem;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+  }
+
+  .invite-btn,
+  .upload-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .polaroid {
+    width: calc(50% - 16px); /* two per row instead of a fixed 220px */
+    min-width: 140px;
+  }
+
+  .wire-gallery {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .polaroid {
+    width: 100%; /* one per row on very narrow screens */
+  }
+}

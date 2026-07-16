@@ -1,0 +1,91 @@
+<!-- components/auth/auth.component.html -->
+<div class="auth-screen">
+  <div class="logo-wrap">
+    <img src="/clothespin-logo.png" alt="" class="clothespin-logo" />
+    <h1 class="wordmark">Memory<br />Gallery</h1>
+  </div>
+
+  <div class="auth-card">
+    <div class="mode-toggle">
+      <button
+        [class.active]="mode === 'login'"
+        (click)="setMode('login')">
+        LOG IN
+      </button>
+      <span class="divider">/</span>
+      <button
+        [class.active]="mode === 'register'"
+        (click)="setMode('register')">
+        REGISTER
+      </button>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <!--
+        NOTE: the original mockup only shows Email + Password fields, even
+        in what's presumably the same toggle for Register. But the backend
+        requires `name` to register (POST /api/auth/register body:
+        { name, email, password }) — there's no way around that without a
+        backend change. This adds a Name field, shown ONLY in register
+        mode, since hiding it would just cause every registration attempt
+        to fail with "Name, email, and password are all required."
+      -->
+      <div class="field-group" *ngIf="mode === 'register'">
+        <label>NAME</label>
+        <div class="input-wrap">
+          <input type="text" [(ngModel)]="name" name="name" placeholder="Your name" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>EMAIL</label>
+        <div class="input-wrap">
+          <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            autocomplete="email"
+            placeholder="you@example.com" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>PASSWORD</label>
+        <div class="input-wrap">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+            name="password"
+            [attr.autocomplete]="mode === 'login' ? 'current-password' : 'new-password'"
+            placeholder="••••••••••••" />
+          <button type="button" class="show-hide-btn" (click)="togglePasswordVisibility()">
+            {{ showPassword ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+      </div>
+
+      <!--
+        "Forgot your password?" from the mockup has no backend support
+        yet (no reset flow exists) — left out entirely for now rather
+        than showing a link that leads nowhere.
+      -->
+
+      <div class="error-message" *ngIf="errorMessage()">{{ errorMessage() }}</div>
+
+      <div class="divider-row">
+        <span></span>
+        <span class="or-text">OR</span>
+        <span></span>
+      </div>
+
+      <button type="submit" class="continue-btn" [disabled]="isLoading()">
+        {{ isLoading() ? 'Please wait...' : 'CONTINUE' }}
+      </button>
+    </form>
+
+    <p class="fine-print">
+      By continuing, you agree to our Terms of Service and acknowledge our
+      Privacy Policy.
+    </p>
+  </div>
+</div>
