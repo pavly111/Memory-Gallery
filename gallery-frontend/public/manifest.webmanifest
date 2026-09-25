@@ -1,6 +1,6 @@
 {
-  "name": "gallery-frontend",
-  "short_name": "gallery-frontend",
+  "name": "Memory Gallery",
+  "short_name": "Memory Gallery",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
