@@ -94,13 +94,19 @@ export class EventGalleryComponent implements OnInit {
               this.photos.update((current) => [photo, ...current]);
               this.isUploading.set(false);
             },
-            error: () => {
+            error: (err) => {
+              console.error('Save-to-backend failed after Cloudinary upload:', err);
               this.errorMessage.set('Uploaded to Cloudinary but failed to save — try again.');
               this.isUploading.set(false);
             },
           });
       },
-      error: () => {
+      error: (err) => {
+        // Temporary detailed logging to diagnose iPhone upload failures.
+        console.error('Cloudinary upload failed - full error object:', err);
+        console.error('Cloudinary error message:', err?.error?.error?.message);
+        console.error('HTTP status:', err?.status);
+        console.error('File info:', { name: file.name, type: file.type, size: file.size });
         this.errorMessage.set('Upload failed. Please try again.');
         this.isUploading.set(false);
       },
