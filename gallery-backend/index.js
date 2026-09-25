@@ -35,14 +35,16 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-// Serve the built Angular app.
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve the built Angular app. Angular's esbuild-based builder nests the
+// actual output under a "browser" subfolder inside the given output path.
+const angularDist = path.join(__dirname, 'public', 'browser');
+app.use(express.static(angularDist));
 
 // Anything that isn't an /api route falls through to index.html so
 // Angular's router can handle deep links (e.g. /event/123) on refresh.
 app.use((req, res, next) => {
   if (req.path.startsWith('/api')) return next();
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(angularDist, 'index.html'));
 });
 
 dbConnect().then(() => {
