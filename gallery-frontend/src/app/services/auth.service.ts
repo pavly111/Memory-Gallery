@@ -14,7 +14,7 @@ const USER_KEY = 'memory_gallery_user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:5000/api/auth';
+  private baseUrl = '/api/auth';
 
   // Signal so templates/components can reactively show/hide UI based on
   // login state without subscribing manually — e.g. *ngIf="authService.currentUser()"

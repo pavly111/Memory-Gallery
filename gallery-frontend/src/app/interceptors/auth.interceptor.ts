@@ -14,8 +14,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Only attach the token to requests going to OUR backend — never to
   // third-party APIs (e.g. Cloudinary's direct upload endpoint). Adjust
-  // this base URL if your backend runs somewhere other than localhost:5000.
-  const isOwnBackend = req.url.startsWith('http://localhost:5000');
+  // Own-backend calls are relative ('/api/...'); Cloudinary calls are absolute URLs.
+  const isOwnBackend = req.url.startsWith('/api');
   const isAuthEndpoint = req.url.includes('/api/auth/');
 
   if (!token || !isOwnBackend || isAuthEndpoint) {

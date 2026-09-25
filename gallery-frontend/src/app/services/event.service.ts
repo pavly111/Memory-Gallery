@@ -10,7 +10,7 @@ import { EventModel } from '../models/event.model';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
-  private baseUrl = 'http://localhost:5000/api/events';
+  private baseUrl = '/api/events';
 
   constructor(private http: HttpClient) {}
 

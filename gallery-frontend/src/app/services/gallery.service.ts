@@ -11,7 +11,7 @@ import { Photo } from '../models/photo.model';
 
 @Injectable({ providedIn: 'root' })
 export class GalleryService {
-  private baseUrl = 'http://localhost:5000/api/events';
+  private baseUrl = '/api/events';
 
   constructor(private http: HttpClient) {}
 

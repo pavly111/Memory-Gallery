@@ -7,8 +7,8 @@ import { Invite } from '../models/invite.model';
 
 @Injectable({ providedIn: 'root' })
 export class InviteService {
-  private eventsUrl = 'http://localhost:5000/api/events';
-  private invitesUrl = 'http://localhost:5000/api/invites';
+  private eventsUrl = '/api/events';
+  private invitesUrl = '/api/invites';
 
   constructor(private http: HttpClient) {}
 
