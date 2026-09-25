@@ -6,7 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: url('/darkroom-bg.png') no-repeat center center fixed;
+  background: url('/darkroom-bg.png') no-repeat center center / cover fixed;
   padding: 48px 16px;
 }
 
@@ -174,4 +174,12 @@
   color: var(--color-text-muted);
   text-align: center;
   margin-top: 20px;
+}
+@media (max-width: 768px) {
+  .auth-screen {
+    /* background-attachment: fixed renders poorly (or not at all) on iOS
+       Safari — scroll performance issues and visual glitches are common.
+       Falling back to normal scrolling on mobile avoids that entirely. */
+    background-attachment: scroll;
+  }
 }
