@@ -17,6 +17,10 @@
 
 html, body {
   height: 100%;
+  /* Prevents any decorative element (like the dashboard header's glow
+     pseudo-element) from creating horizontal overflow and exposing a
+     blank strip past the edge of the background image on narrow screens. */
+  overflow-x: hidden;
 }
 :root {
   /* COLORS */

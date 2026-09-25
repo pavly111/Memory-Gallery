@@ -143,6 +143,12 @@
 }
 
 @media (max-width: 768px) {
+  .dashboard-header::before {
+    width: 260px;
+    height: 100px;
+    top: -16px;
+    left: -16px;
+  }
   .dashboard {
     padding: 20px 16px;
     /* background-attachment: fixed renders poorly (or not at all) on iOS
