@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "cd ../gallery-frontend && npm install && ng build --configuration production --output-path ../gallery-backend/public"
+    "build": "cd ../gallery-frontend && npm install --include=dev && npx ng build --configuration production --output-path ../gallery-backend/public"
   },
   "keywords": [],
   "author": "",
